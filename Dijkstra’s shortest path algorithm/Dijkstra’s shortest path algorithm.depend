@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1595405187 source:d:\c++\grafelmelet, fak\algorithms\dijkstra’s shortest path algorithm\main.cpp
+	<iostream>
+	<vector>
+	<queue>
+

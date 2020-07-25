@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1594901058 source:d:\c++\grafelmelet, fak\algorithms\prim’s minimum spanning tree algorithm\main.cpp
+	<iostream>
+	<vector>
+	<queue>
+

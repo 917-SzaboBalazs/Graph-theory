@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1594983028 source:d:\c++\grafelmelet, fak\algorithms\kruskal’s minimum spanning tree algorithm\main.cpp
+	<iostream>
+	<vector>
+	<algorithm>
+

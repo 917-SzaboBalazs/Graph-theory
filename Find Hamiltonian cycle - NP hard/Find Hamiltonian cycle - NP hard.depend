@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1595072183 source:d:\c++\grafelmelet, fak\algorithms\find hamiltonian cycle - np hard\main.cpp
+	<iostream>
+	<vector>
+

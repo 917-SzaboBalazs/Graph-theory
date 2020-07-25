@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1586031158 source:d:\c++\grafelmelet, fak\algorithms\longest path in a directed acyclic graph\main.cpp
+	<iostream>
+	<vector>
+	<algorithm>
+

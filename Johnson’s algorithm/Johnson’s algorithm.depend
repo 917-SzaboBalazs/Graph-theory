@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1595610973 source:d:\c++\grafelmelet, fak\algorithms\johnson’s algorithm\main.cpp
+	<iostream>
+	<vector>
+	<queue>
+

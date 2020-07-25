@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1594891114 source:d:\c++\grafelmelet, fak\algorithms\detect cycle using colors\main.cpp
+	<iostream>
+	<vector>
+

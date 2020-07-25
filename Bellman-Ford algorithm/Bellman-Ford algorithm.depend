@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1595502965 source:d:\c++\grafelmelet, fak\algorithms\bellman-ford algorithm\main.cpp
+	<iostream>
+	<vector>
+
