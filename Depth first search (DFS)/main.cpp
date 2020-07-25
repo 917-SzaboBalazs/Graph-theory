@@ -3,7 +3,7 @@
 
 using namespace std;
 
-enum { UNDIRECTED, DIRECTED };
+enum GraphType { UNDIRECTED, DIRECTED };
 
 void dfs(int currNode, bool *visited, vector<int> *adj)
 {
@@ -31,17 +31,18 @@ int main()
         int v1, v2; cin >> v1 >> v2;
         adj[v1].push_back(v2);
 
-        if (graphType == UNDIRECTED)
+        if (graphType == GraphType::UNDIRECTED)
         {
             adj[v2].push_back(v1);
         }
     }
 
-    int start; cin >> start;
+    int src; cin >> src;
 
     bool visited[n + 1] = { false };
 
-    dfs(start, visited, adj);
+    cout << "DFS order: ";
+    dfs(src, visited, adj);
     cout << endl;
 
     return 0;

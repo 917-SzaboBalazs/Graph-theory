@@ -4,64 +4,75 @@
 
 using namespace std;
 
-struct Edge
+struct Adjacent
 {
-    int dest;
+    int id;
     int cost;
 };
 
-void createTopoOrder(int curr, bool *visited, vector<Edge> *adj, vector<int> &topoOrder)
+void createTopoOrder(int currNode, vector<bool> &visited, vector<Adjacent> *adj, vector<int> &topoOrder)
 {
-    visited[curr] = true;
+    visited[currNode] = true;
 
-    for (Edge &e : adj[curr])
+    for (Adjacent &adjNode : adj[currNode])
     {
-        if (!visited[e.dest])
+        if (!visited[adjNode.id])
         {
-            createTopoOrder(e.dest, visited, adj, topoOrder);
+            createTopoOrder(adjNode.id, visited, adj, topoOrder);
         }
     }
 
-    topoOrder.push_back(curr);
+    topoOrder.push_back(currNode);
 }
 
 int main()
 {
     int n, m; cin >> n >> m;
-    vector<Edge> adj[n + 1];
+    vector<Adjacent> adj[n + 1];
 
     for (int i = 0; i < m; i++)
     {
-        int v1, v2, w; cin >> v1 >> v2 >> w;
-        adj[v1].push_back({ v2, w });
+        int u, v, w; cin >> u >> v >> w;
+        adj[u].push_back({ v, w });
     }
-    int start; cin >> start;
 
+    int src; cin >> src;
+
+    vector<bool> visited(n + 1, false);
     vector<int> topoOrder;
-    bool visited[n + 1] = { false };
 
-    createTopoOrder(start, visited, adj, topoOrder);
+    createTopoOrder(src, visited, adj, topoOrder);
     reverse(topoOrder.begin(), topoOrder.end());
 
-    int maxDist[n + 1]; fill(maxDist + 1, maxDist + n + 1, INT_MIN);
-    maxDist[start] = 0;
+    vector<int> maxDist(n + 1, INT_MIN), prev(n + 1, -1);
+    maxDist[src] = 0;
 
-    for (size_t i = 0; i < topoOrder.size(); i++)
+    for (int &currNode : topoOrder)
     {
-        if (maxDist[topoOrder[i]] == INT_MIN) continue;
+        if (maxDist[currNode] == INT_MIN) continue;
 
-        for (Edge &e : adj[topoOrder[i]])
+        for (Adjacent &adjNode : adj[currNode])
         {
-            if (maxDist[e.dest] < maxDist[topoOrder[i]] + e.cost)
+            if (maxDist[adjNode.id] < maxDist[currNode] + adjNode.cost)
             {
-                maxDist[e.dest] = maxDist[topoOrder[i]] + e.cost;
+                maxDist[adjNode.id] = maxDist[currNode] + adjNode.cost;
+                prev[adjNode.id] = currNode;
             }
         }
     }
 
+    cout << "Maximum distance from node " << src << ": " << endl;
     for (int i = 1; i <= n; i++)
     {
-        cout << (maxDist[i] == INT_MIN ? "-" : to_string(maxDist[i])) << " ";
+        if (maxDist[i] == INT_MIN)
+        {
+            cout << i << ": -" << endl;
+        }
+        else
+        {
+            cout << i << ": " << maxDist[i] << ", previous node: " << prev[i] << endl;
+        }
+
     }
     cout << endl;
 

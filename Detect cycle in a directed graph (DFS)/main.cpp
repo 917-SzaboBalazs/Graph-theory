@@ -3,7 +3,7 @@
 
 using namespace std;
 
-bool detectCycle(int currNode, bool *visited, bool *currPath, vector<int> *adj)
+bool detectCycle(int currNode, vector<bool> &visited, vector<bool> &currPath, vector<int> *adj)
 {
     visited[currNode] = currPath[currNode] = true;
 
@@ -38,21 +38,26 @@ int main()
         adj[v1].push_back(v2);
     }
 
-    bool visited[n + 1] = { false }, currPath[n + 1] = { false };
+    vector<bool> visited(n + 1, false), currPath(n + 1, false);
 
-    for (int i = 1; i <= n; i++)
+    bool isCycle = false;
+
+    for (int i = 1; i <= n && !isCycle; i++)
     {
-        if (!visited[i])
+        if (!visited[i] && detectCycle(i, visited, currPath, adj))
         {
-            if (detectCycle(i, visited, currPath, adj))
-            {
-                cout << "The graph contains cycle" << endl;
-                return 0;
-            }
+            isCycle = true;
         }
     }
 
-    cout << "The graph does not contain cycle" << endl;
+    if (isCycle)
+    {
+        cout << "The graph contains cycle" << endl;
+    }
+    else
+    {
+        cout << "The graph does not contain cycle" << endl;
+    }
 
     return 0;
 }

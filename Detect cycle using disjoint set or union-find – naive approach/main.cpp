@@ -1,16 +1,17 @@
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
 struct Edge
 {
-    int u;
-    int v;
+    int src;
+    int dest;
 };
 
-int findRepr(int currNode, int *repr)
+int Find(int currNode, vector<int> &repr)
 {
-    while (repr[currNode] != currNode)
+    while (currNode != repr[currNode])
     {
         currNode = repr[currNode];
     }
@@ -21,24 +22,30 @@ int findRepr(int currNode, int *repr)
 int main()
 {
     int n, m; cin >> n >> m;
-    Edge edges[m];
+    vector<Edge> edges(m);
 
     for (int i = 0; i < m; i++)
     {
-        cin >> edges[i].u >> edges[i].v;
+        cin >> edges[i].src >> edges[i].dest;
     }
 
-    int repr[n + 1]; for (int i = 1; i <= n; i++) repr[i] = i;
-    bool wasCycle = false;
+    vector<int> repr(n + 1);
 
-    for (int i = 0; i < m; i++)
+    for (int i = 1; i <= n; i++)
     {
-        int findU = findRepr(edges[i].u, repr);
-        int findV = findRepr(edges[i].v, repr);
+        repr[i] = i;
+    }
+
+    bool isCycle = false;
+
+    for (int i = 0; i < m && !isCycle; i++)
+    {
+        int findU = Find(edges[i].src, repr);
+        int findV = Find(edges[i].dest, repr);
 
         if (findU == findV)
         {
-            wasCycle = true;
+            isCycle = true;
         }
         else
         {
@@ -46,7 +53,7 @@ int main()
         }
     }
 
-    if (wasCycle)
+    if (isCycle)
     {
         cout << "The graph contains cycle" << endl;
     }

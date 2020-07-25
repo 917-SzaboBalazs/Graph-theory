@@ -4,7 +4,7 @@
 
 using namespace std;
 
-enum { UNDIRECTED, DIRECTED };
+enum GraphType { UNDIRECTED, DIRECTED };
 
 int main()
 {
@@ -18,19 +18,20 @@ int main()
         int v1, v2; cin >> v1 >> v2;
         adj[v1].push_back(v2);
 
-        if (graphType == UNDIRECTED)
+        if (graphType == GraphType::UNDIRECTED)
         {
             adj[v2].push_back(v1);
         }
     }
 
-    int start; cin >> start;
+    int src; cin >> src;
 
     queue<int> q;
     vector<bool> visited(n + 1, false);
 
-    q.push(start);
+    q.push(src);
 
+    cout << "BFS order: ";
     while (!q.empty())
     {
         int currNode = q.front();

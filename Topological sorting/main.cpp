@@ -4,19 +4,19 @@
 
 using namespace std;
 
-void topoSort(int curr, bool *visited, vector<int> *adj, vector<int> &topoOrder)
+void createTopoOrder(int currNode, vector<bool> &visited, vector<int> *adj, vector<int> &topoOrder)
 {
-    visited[curr] = true;
+    visited[currNode] = true;
 
-    for (int &adjacent : adj[curr])
+    for (int &adjNode : adj[currNode])
     {
-        if (!visited[adjacent])
+        if (!visited[adjNode])
         {
-            topoSort(adjacent, visited, adj, topoOrder);
+            createTopoOrder(adjNode, visited, adj, topoOrder);
         }
     }
 
-    topoOrder.push_back(curr);
+    topoOrder.push_back(currNode);
 }
 
 int main()
@@ -26,27 +26,25 @@ int main()
 
     for (int i = 0; i < m; i++)
     {
-        int v1, v2; cin >> v1 >> v2;
-        adj[v1].push_back(v2);
+        int u, v; cin >> u >> v;
+        adj[u].push_back(v);
     }
 
-    bool visited[n + 1] = { false };
+    vector<bool> visited(n + 1, false);
     vector<int> topoOrder;
 
     for (int i = 1; i <= n; i++)
     {
         if (!visited[i])
         {
-            topoSort(i, visited, adj, topoOrder);
+            createTopoOrder(i, visited, adj, topoOrder);
         }
     }
 
     reverse(topoOrder.begin(), topoOrder.end());
+
     cout << "Topological order: ";
-    for (int &item : topoOrder)
-    {
-        cout << item << " ";
-    }
+    for (int &item : topoOrder) cout << item << " ";
     cout << endl;
 
     return 0;

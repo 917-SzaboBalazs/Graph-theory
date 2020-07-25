@@ -3,15 +3,15 @@
 
 using namespace std;
 
-enum Colors { WHITE, GRAY, BLACK };
+enum Colors { BLACK, GRAY, WHITE };
 
-bool detectCycle(int currNode, int *colors, vector<int> *adj)
+bool detectCycle(int currNode, vector<int> &colors, vector<int> *adj)
 {
     colors[currNode] = GRAY;
 
     for (int &adjNode : adj[currNode])
     {
-        if (colors[adjNode] == WHITE)
+        if (colors[adjNode] == BLACK)
         {
             if (detectCycle(adjNode, colors, adj))
             {
@@ -24,7 +24,7 @@ bool detectCycle(int currNode, int *colors, vector<int> *adj)
         }
     }
 
-    colors[currNode] = BLACK;
+    colors[currNode] = WHITE;
 
     return false;
 }
@@ -40,21 +40,26 @@ int main()
         adj[v1].push_back(v2);
     }
 
-    int colors[n + 1] = { WHITE };
+    vector<int> colors(n + 1, BLACK);
 
-    for (int i = 1; i <= n; i++)
+    bool isCycle = false;
+
+    for (int i = 1; i <= n && !isCycle; i++)
     {
-        if (colors[i] == WHITE)
+        if (colors[i] == BLACK && detectCycle(i, colors, adj))
         {
-            if (detectCycle(i, colors, adj))
-            {
-                cout << "The graph contains cycle" << endl;
-                return 0;
-            }
+            isCycle = true;
         }
     }
 
-    cout << "The graph does not contain cycle" << endl;
+    if (isCycle)
+    {
+        cout << "The graph contains cycle" << endl;
+    }
+    else
+    {
+        cout << "The graph does not contain cycle" << endl;
+    }
 
     return 0;
 }

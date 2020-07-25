@@ -1,11 +1,12 @@
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
 struct Edge
 {
-    int u;
-    int v;
+    int src;
+    int dest;
 };
 
 struct Node
@@ -14,69 +15,68 @@ struct Node
     int nodeRank;
 };
 
-int findRepr(int currNode, Node *nodes)
+int Find(int currNode, vector<Node> &nodes)
 {
-    if (nodes[currNode].repr != currNode)
+    if (currNode != nodes[currNode].repr)
     {
-        nodes[currNode].repr = findRepr(nodes[currNode].repr, nodes);
+        nodes[currNode].repr = Find(nodes[currNode].repr, nodes);
     }
 
     return nodes[currNode].repr;
 }
 
-void doUnion(int reprU, int reprV, Node *nodes)
+void Union(int u, int v, vector<Node> &nodes)
 {
-    if (nodes[reprU].nodeRank == nodes[reprV].nodeRank)
+    if (nodes[u].nodeRank < nodes[v].nodeRank)
     {
-        nodes[reprU].repr = reprV;
-        nodes[reprV].nodeRank++;
+        nodes[u].repr = v;
     }
-    else if (nodes[reprU].nodeRank > nodes[reprV].nodeRank)
+    else if (nodes[u].nodeRank > nodes[v].nodeRank)
     {
-        nodes[reprV].repr = reprU;
+        nodes[v].repr = u;
     }
     else
     {
-        nodes[reprU].repr = reprV;
+        nodes[u].repr = v;
+        nodes[v].nodeRank = u;
     }
 }
 
 int main()
 {
     int n, m; cin >> n >> m;
-    Edge edges[m];
+    vector<Edge> edges(m);
 
     for (int i = 0; i < m; i++)
     {
-        cin >> edges[i].u >> edges[i].v;
+        cin >> edges[i].src >> edges[i].dest;
     }
 
-    Node nodes[n + 1];
+    vector<Node> nodes(n + 1);
 
     for (int i = 1; i <= n; i++)
     {
-        nodes[i].repr = i;
-        nodes[i].nodeRank = 0;
+        nodes[i] = { i, 0 };
     }
 
-    bool wasCycle = false;
+    bool isCycle = false;
 
-    for (int i = 0; i < m; i++)
+    for (int i = 0; i < m && !isCycle; i++)
     {
-        int findU = findRepr(edges[i].u, nodes);
-        int findV = findRepr(edges[i].v, nodes);
+        int findU = Find(edges[i].src, nodes);
+        int findV = Find(edges[i].dest, nodes);
 
         if (findU == findV)
         {
-            wasCycle = true;
+            isCycle = true;
         }
         else
         {
-            doUnion(findU, findV, nodes);
+            Union(findU, findV, nodes);
         }
     }
 
-    if (wasCycle)
+    if (isCycle)
     {
         cout << "The graph contains cycle" << endl;
     }

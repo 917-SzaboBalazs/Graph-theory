@@ -6,7 +6,7 @@ using namespace std;
 
 struct Adjacent
 {
-    int dest;
+    int id;
     int cost;
 };
 
@@ -29,9 +29,9 @@ int main()
 
     for (int i = 0; i < m; i++)
     {
-        int v1, v2, w; cin >> v1 >> v2 >> w;
-        adj[v1].push_back({ v2, w });
-        adj[v2].push_back({ v1, w });
+        int u, v, w; cin >> u >> v >> w;
+        adj[u].push_back({ v, w });
+        adj[v].push_back({ u, w });
     }
 
     vector<bool> visited(n + 1, false);
@@ -43,15 +43,15 @@ int main()
     visited[1] = true;
     for (Adjacent &adjNode : adj[1])
     {
-        pq.push({ 1, adjNode.dest, adjNode.cost });
+        pq.push({ 1, adjNode.id, adjNode.cost });
     }
 
     while (!pq.empty() && (int)MST.size() != n - 1)
     {
         Edge currEdge = pq.top();
-        pq.pop();
-
         int currNode = currEdge.dest;
+
+        pq.pop();
 
         if (visited[currNode]) continue;
         visited[currNode] = true;
@@ -61,7 +61,7 @@ int main()
 
         for (Adjacent &adjNode : adj[currNode])
         {
-            pq.push({ currNode, adjNode.dest, adjNode.cost });
+            pq.push({ currNode, adjNode.id, adjNode.cost });
         }
     }
 

@@ -6,82 +6,82 @@ using namespace std;
 
 struct Edge
 {
-    int u;
-    int v;
-    int w;
-
-    friend istream &operator>>(istream &in, Edge &obj)
-    {
-        in >> obj.u >> obj.v >> obj.w;
-        return in;
-    }
+    int src;
+    int dest;
+    int cost;
 
     bool operator<(const Edge &rhs) const
     {
-        return w < rhs.w;
+        return cost < rhs.cost;
     }
 };
 
-struct Subset
+struct Node
 {
-    int parent;
-    int rank;
+    int repr;
+    int nodeRank;
 };
 
-int find(int i, Subset *subsets)
+int Find(int currNode, vector<Node> &nodes)
 {
-    if (subsets[i].parent != i)
+    if (currNode != nodes[currNode].repr)
     {
-        subsets[i].parent = find(subsets[i].parent, subsets);
+        nodes[currNode].repr = Find(nodes[currNode].repr, nodes);
     }
-    return subsets[i].parent;
+
+    return nodes[currNode].repr;
 }
 
-void Union(int u, int v, Subset *subsets)
+void Union(int u, int v, vector<Node> &nodes)
 {
-    if (subsets[u].rank < subsets[v].rank)
+    if (nodes[u].nodeRank < nodes[v].nodeRank)
     {
-        subsets[u].parent = v;
+        nodes[u].repr = v;
     }
-    else if (subsets[u].rank > subsets[v].rank)
+    else if (nodes[u].nodeRank > nodes[v].nodeRank)
     {
-        subsets[v].parent = u;
+        nodes[v].repr = u;
     }
     else
     {
-        subsets[u].parent = v;
-        subsets[v].rank++;
+        nodes[u].repr = v;
+        nodes[v].nodeRank++;
     }
 }
 
 int main()
 {
     int n, m; cin >> n >> m;
-    Edge edges[m];
+    vector<Edge> edges(m);
 
     for (int i = 0; i < m; i++)
     {
-        cin >> edges[i];
+        cin >> edges[i].src >> edges[i].dest >> edges[i].cost;
     }
 
-    sort(edges, edges + m);
-    Subset subsets[n + 1]; for (int i = 1; i <= n; i++) subsets[i] = { i, 0 };
-
+    sort(edges.begin(), edges.end());
 
     vector<Edge> MST;
     int MSTCost = 0;
 
+    vector<Node> nodes(n + 1);
+
+    for (int i = 1; i <= n; i++)
+    {
+        nodes[i] = { i, 0 };
+    }
+
     for (int i = 0; i < m && (int)MST.size() != n - 1; i++)
     {
-        int findU = find(edges[i].u, subsets);
-        int findV = find(edges[i].v, subsets);
+        int findU = Find(edges[i].src, nodes);
+        int findV = Find(edges[i].dest, nodes);
 
         if (findU != findV)
         {
-            MST.push_back(edges[i]);
-            MSTCost += edges[i].w;
+            Union(findU, findV, nodes);
 
-            Union(findU, findV, subsets);
+            MST.push_back(edges[i]);
+            MSTCost += edges[i].cost;
         }
     }
 
@@ -94,7 +94,7 @@ int main()
         cout << "MST cost: " << MSTCost << endl;
         for (Edge &e : MST)
         {
-            cout << e.u << " - " << e.v << endl;
+            cout << e.src << " - " << e.dest << endl;
         }
     }
 

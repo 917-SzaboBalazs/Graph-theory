@@ -3,7 +3,7 @@
 
 using namespace std;
 
-enum { UNDIRECTED, DIRECTED };
+enum GraphType { UNDIRECTED, DIRECTED };
 
 void findHamiltonian(int currNode, vector<bool> &visited, vector<int> &currPath, vector<int> &hamil, vector<int> *adj, int n)
 {
@@ -55,18 +55,16 @@ int main()
     for (int i = 0; i < m; i++)
     {
         int u, v; cin >> u >> v;
-        adj[u].push_back(v);
 
-        if (graphType == UNDIRECTED)
+        adj[u].push_back(v);
+        if (graphType == GraphType::UNDIRECTED)
         {
             adj[v].push_back(u);
         }
     }
 
-    vector<int> hamil;
-
     vector<bool> visited(n + 1, false);
-    vector<int> currPath;
+    vector<int> hamil, currPath;
 
     findHamiltonian(1, visited, currPath, hamil, adj, n);
 
@@ -77,6 +75,7 @@ int main()
     else
     {
         hamil.push_back(1);
+
         cout << "Hamiltonian cycle: ";
         for (int &item : hamil) cout << item << " ";
         cout << endl;

@@ -4,7 +4,7 @@
 
 using namespace std;
 
-enum { UNDIRECTED, DIRECTED };
+enum GraphType { UNDIRECTED, DIRECTED };
 
 struct Adjacent
 {
@@ -26,8 +26,9 @@ int main()
     for (int i = 0; i < m; i++)
     {
         int u, v, w; cin >> u >> v >> w;
+
         adj[u].push_back({ v, w });
-        if (graphType == UNDIRECTED)
+        if (graphType == GraphType::UNDIRECTED)
         {
             adj[v].push_back({ u, w });
         }
@@ -36,8 +37,7 @@ int main()
     int src; cin >> src;
 
     vector<bool> visited(n + 1, false);
-    vector<int> minDist(n + 1, INT_MAX);
-    vector<int> prev(n + 1, -1);
+    vector<int> minDist(n + 1, INT_MAX), prev(n + 1, -1);
 
     priority_queue<Adjacent, vector<Adjacent>, greater<Adjacent>> pq;
 

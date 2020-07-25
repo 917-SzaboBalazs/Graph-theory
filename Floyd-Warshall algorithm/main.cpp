@@ -3,7 +3,7 @@
 
 using namespace std;
 
-enum { UNDIRECTED, DIRECTED };
+enum GraphType { UNDIRECTED, DIRECTED };
 
 int main()
 {
@@ -17,9 +17,10 @@ int main()
     for (int i = 0; i < m; i++)
     {
         int u, v, w; cin >> u >> v >> w;
+
         graph[u][v] = minDist[u][v] = w;
         next[u][v] = v;
-        if (graphType == UNDIRECTED)
+        if (graphType == GraphType::UNDIRECTED)
         {
             graph[v][u] = minDist[v][u] = w;
             next[v][u] = u;
