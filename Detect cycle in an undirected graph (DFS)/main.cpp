@@ -32,9 +32,9 @@ int main()
 
     for (int i = 0; i < m; i++)
     {
-        int v1, v2; cin >> v1 >> v2;
-        adj[v1].push_back(v2);
-        adj[v2].push_back(v1);
+        int u, v; cin >> u >> v;
+        adj[u].push_back(v);
+        adj[v].push_back(u);
     }
 
     vector<bool> visited(n + 1, false);
