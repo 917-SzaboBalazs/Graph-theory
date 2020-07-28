@@ -34,8 +34,8 @@ int main()
 
     for (int i = 0; i < m; i++)
     {
-        int v1, v2; cin >> v1 >> v2;
-        adj[v1].push_back(v2);
+        int u, v; cin >> u >> v;
+        adj[u].push_back(v);
     }
 
     vector<bool> visited(n + 1, false), currPath(n + 1, false);
