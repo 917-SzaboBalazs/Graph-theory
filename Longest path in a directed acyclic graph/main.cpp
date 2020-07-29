@@ -72,9 +72,7 @@ int main()
         {
             cout << i << ": " << maxDist[i] << ", previous node: " << prev[i] << endl;
         }
-
     }
-    cout << endl;
 
     return 0;
 }
