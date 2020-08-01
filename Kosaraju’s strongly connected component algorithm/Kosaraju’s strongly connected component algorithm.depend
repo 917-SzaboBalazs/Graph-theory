@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1595881676 source:d:\c++\grafelmelet, fak\graph-theory\kosaraju’s strongly connected component algorithm\main.cpp
+	<iostream>
+	<vector>
+	<stack>
+
