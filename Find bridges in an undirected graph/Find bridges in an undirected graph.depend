@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1596308094 source:d:\c++\grafelmelet, fak\graph-theory\find bridges in an undirected graph\main.cpp
+	<iostream>
+	<vector>
+
