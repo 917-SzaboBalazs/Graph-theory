@@ -49,8 +49,6 @@ int main()
 
     for (int &currNode : topoOrder)
     {
-        if (maxDist[currNode] == INT_MIN) continue;
-
         for (Adjacent &adjNode : adj[currNode])
         {
             if (maxDist[adjNode.id] < maxDist[currNode] + adjNode.cost)
