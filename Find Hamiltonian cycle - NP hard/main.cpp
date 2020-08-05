@@ -5,7 +5,7 @@ using namespace std;
 
 enum GraphType { UNDIRECTED, DIRECTED };
 
-void findHamiltonian(int currNode, vector<bool> &visited, vector<int> &currPath, vector<int> &hamil, vector<int> *adj, int n)
+void findHamiltonian(int currNode, int prevNode, vector<bool> &visited, vector<int> &currPath, vector<int> &hamil, vector<int> *adj, int n, int graphType)
 {
     visited[currNode] = true;
     currPath.push_back(currNode);
@@ -15,7 +15,7 @@ void findHamiltonian(int currNode, vector<bool> &visited, vector<int> &currPath,
         bool isBackEdge = false;
         for (int &adjNode : adj[currNode])
         {
-            if (adjNode == 1)
+            if (adjNode == 1 && (graphType == GraphType::DIRECTED || (graphType == GraphType::UNDIRECTED && adjNode != prevNode)))
             {
                 isBackEdge = true;
                 break;
@@ -33,7 +33,7 @@ void findHamiltonian(int currNode, vector<bool> &visited, vector<int> &currPath,
     {
         if (!visited[adjNode])
         {
-            findHamiltonian(adjNode, visited, currPath, hamil, adj, n);
+            findHamiltonian(adjNode, currNode, visited, currPath, hamil, adj, n, graphType);
             if ((int)hamil.size() == n)
             {
                 return;
@@ -66,7 +66,7 @@ int main()
     vector<bool> visited(n + 1, false);
     vector<int> hamil, currPath;
 
-    findHamiltonian(1, visited, currPath, hamil, adj, n);
+    findHamiltonian(1, -1, visited, currPath, hamil, adj, n, graphType);
 
     if (hamil.size() == 0 && n > 1)
     {

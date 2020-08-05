@@ -4,3 +4,5 @@ test_3: http://graphonline.ru/en/?graph=OVoydVeVFIMLtOqi
 test_4: http://graphonline.ru/en/?graph=GJEQkfTZDCdNfpTf
 test_5: http://graphonline.ru/en/?graph=JRWSvWyRTCBaxgOk
 test_6: http://graphonline.ru/en/?graph=iSuWQJKXNDpbWumP
+test_7: http://graphonline.ru/en/?graph=luATXhZxkRbXaxAj
+test_8: http://graphonline.ru/en/?graph=RpvIzBVUWWLMqKwA
