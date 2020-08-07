@@ -47,40 +47,57 @@ int main()
         }
     }
 
-    cout << "Minimum distance: " << endl;
-    for (int i = 1; i <= n; i++)
-    {
-        cout << i << ": ";
-        for (int j = 1; j <= n; j++)
-        {
-            if (minDist[i][j] == INT_MAX)
-            {
-                cout << "- ";
-            }
-            else
-            {
-                cout << minDist[i][j] << " ";
-            }
-        }
-        cout << endl;
-    }
-    cout << endl;
+    bool negativeWeightCycle = false;
 
-    cout << "Next node matrix: " << endl;
-    for (int i = 1; i <= n; i++)
+    for (int i = 1; i <= n && !negativeWeightCycle; i++)
     {
-        for (int j = 1; j <= n; j++)
+        if (minDist[i][i] < 0)
         {
-            if (next[i][j] == -1)
+            negativeWeightCycle = true;
+        }
+    }
+
+    if (negativeWeightCycle)
+    {
+        cout << "The graph contains negative weight cycle" << endl;
+    }
+    else
+    {
+        cout << "Minimum distance: " << endl;
+        for (int i = 1; i <= n; i++)
+        {
+            cout << i << ": ";
+            for (int j = 1; j <= n; j++)
             {
-                cout << "- ";
+                if (minDist[i][j] == INT_MAX)
+                {
+                    cout << "- ";
+                }
+                else
+                {
+                    cout << minDist[i][j] << " ";
+                }
             }
-            else
-            {
-                cout << next[i][j] << " ";
-            }
+            cout << endl;
         }
         cout << endl;
+
+        cout << "Next node matrix: " << endl;
+        for (int i = 1; i <= n; i++)
+        {
+            for (int j = 1; j <= n; j++)
+            {
+                if (next[i][j] == -1)
+                {
+                    cout << "- ";
+                }
+                else
+                {
+                    cout << next[i][j] << " ";
+                }
+            }
+            cout << endl;
+        }
     }
 
     return 0;
