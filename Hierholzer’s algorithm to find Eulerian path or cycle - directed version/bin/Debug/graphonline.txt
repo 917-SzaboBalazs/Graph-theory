@@ -1,0 +1,7 @@
+test_1: http://graphonline.ru/en/?graph=bRGkludavXOirhni
+test_2: http://graphonline.ru/en/?graph=YWGEJmtDXwQPZpjc
+test_3: http://graphonline.ru/en/?graph=TCMZGIiHYJjeSbzq
+test_4: http://graphonline.ru/en/?graph=iKuYgnREUcQEDAAQ
+test_5: http://graphonline.ru/en/?graph=xwLAPZfUIEXLlBjM
+test_6: http://graphonline.ru/en/?graph=sJXyNwZzmQLtauQp
+test_7: http://graphonline.ru/en/?graph=RJTplgMreXUvHBqJ

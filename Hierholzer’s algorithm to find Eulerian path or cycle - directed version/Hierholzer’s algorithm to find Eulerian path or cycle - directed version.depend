@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1598537153 source:d:\c++\grafelmelet, fak\graph-theory\hierholzer’s algorithm to find eulerian path or cycle - directed version\main.cpp
+	<iostream>
+	<vector>
+	<algorithm>
+
