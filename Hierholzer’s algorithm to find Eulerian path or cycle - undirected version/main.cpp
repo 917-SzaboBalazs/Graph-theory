@@ -1,6 +1,5 @@
 #include <iostream>
 #include <vector>
-#include <algorithm>
 
 using namespace std;
 
@@ -88,8 +87,6 @@ int main()
         }
         else
         {
-            reverse(euler.begin(), euler.end());
-
             cout << "Eulerian path or cycle: ";
             for (int &currNode : euler)
             {
