@@ -73,7 +73,7 @@ int main()
 
     if (startNode == 0)
     {
-        cout << "No Eulerian path or cycle exited!" << endl;
+        cout << "No Eulerian path or cycle existed!" << endl;
     }
     else
     {
@@ -83,7 +83,7 @@ int main()
 
         if ((int)euler.size() != m + 1)
         {
-            cout << "No Eulerian path or cycle exited!" << endl;
+            cout << "No Eulerian path or cycle existed!" << endl;
         }
         else
         {
